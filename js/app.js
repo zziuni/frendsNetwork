@@ -56,7 +56,33 @@ function ( svgModule, config, layoutModule, $, peopleModule, nodeModule ){
         layoutModule.restoreDataOnLocal();
     }
 
+    function onClickApplyConfig(){
+        config.distance = $('#distance' ).val();
+        config.strength = $('#strength' ).val();
+        config.friction = $('#friction' ).val();
+        config.charge = $('#charge' ).val();
+        config.theta = $('#theta' ).val();
+        config.gravity = $('#gravity' ).val();
+        layoutModule.setDistance();
+        layoutModule.setStrength();
+        layoutModule.setFriction();
+        layoutModule.setCharge();
+        layoutModule.setTheta();
+        layoutModule.setGravity();
+        layoutModule.start();
+    }
+
+    function onReady(){
+        $( '#distance' ).val( config.distance );
+        $( '#strength' ).val( config.strength );
+        $( '#friction' ).val( config.friction );
+        $( '#charge' ).val( config.charge );
+        $( '#theta' ).val( config.theta );
+        $( '#gravity' ).val( config.gravity );
+    }
     $('.add' ).on('click', onClickAdd);
     $('.save' ).on('click', onClickSave);
     $('.restore' ).on('click', onClickRestore);
+    $('.applyConfig' ).on('click', onClickApplyConfig);
+    $('body' ).ready( onReady );
 })

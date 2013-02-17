@@ -9,7 +9,7 @@ define(['d3', 'config', 'svg', 'node' ], function( d3, config, svgModule, nodeMo
     function makeForce( container ){
         force = d3.layout.force()
             .size(svgModule.getSize())
-//            .nodes([{name:'고혜성'}]) // initialize with a single node
+//            .nodes([{name:'변치훈'}]) // initialize with a single node
             .linkDistance(config.distance)
             .charge(config.charge)
             .on("tick", tick);
@@ -40,6 +40,30 @@ define(['d3', 'config', 'svg', 'node' ], function( d3, config, svgModule, nodeMo
         nodes = JSON.parse(localStorage.getItem('nodes'));
         links = JSON.parse(localStorage.getItem('links'));
         start();
+    }
+
+    function setDistance(){
+        return force.linkDistance( config.distance );
+    }
+
+    function setStrength(){
+        return force.linkStrength( config.strength );
+    }
+
+    function setFriction(){
+        return force.friction( config.friction );
+    }
+
+    function setCharge(){
+        return force.charge( config.charge );
+    }
+
+    function setTheta(){
+        return force.theta( config.theta );
+    }
+
+    function setGravity(){
+        return force.gravity( config.gravity );
     }
 
     function isNode( name ){
@@ -101,6 +125,16 @@ define(['d3', 'config', 'svg', 'node' ], function( d3, config, svgModule, nodeMo
         saveDataOnLocal: saveDataOnLocal,
         restoreDataOnLocal: restoreDataOnLocal,
         addNode: addNode,
-        isNode: isNode
+        isNode: isNode,
+        setDistance: setDistance,
+        setStrength: setStrength,
+        setFriction: setFriction,
+        setCharge: setCharge,
+        setTheta: setTheta,
+        setGravity: setGravity
+
+
+
+
     };
 });
