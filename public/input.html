@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <style type="text/css">
+        svg {
+            border: 1px solid #000;
+        }
+        rect {
+            fill: #c2d9cd;
+            pointer-events: all;
+        }
+
+        .node{
+            fill: #979797;
+
+        }
+
+        .cursor {
+            fill: none;
+            stroke: brown;
+            pointer-events: none;
+        }
+
+        .link {
+            stroke: #999
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="controls">
+            <form action="">
+                <div class="control">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" placeholder="Your Name.." autofocus>
+                </div>
+                <div class="control">
+                    <label for="frends">Frends</label>
+                    <textarea name="frends" id="frends" cols="30" rows="10" placeholder="name, name, name..."></textarea>
+                </div>
+                <input type="button" value="Apply" class="add  btn btn-primary">
+                <!--<input type="button" value="Save" class="save btn btn-warning">-->
+                <!--<input type="button" value="Restore" class="restore btn btn-danger">-->
+            </form>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="lib/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/require.js" data-main="js/main"></script>
+</body>
+</html>
