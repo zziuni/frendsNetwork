@@ -5,22 +5,23 @@ define(['jquery', 'config'], function ( $, config ){
         frends: []
     }
 
-    function getName(){
-        var name = $('#name' ).val().trim();
+    function getName( nameString ){
+        nameString = (nameString)? nameString : $('#name' ).val();
+        var name = nameString.trim();
         return name;
     }
 
-    function getFriends(  ){
-        var frends = $('#frends' ).val().split(',' ).map( function( d ){
+    function getFriends( friendsString ){
+        friendsString = (friendsString)? friendsString : $('#frends' ).val();
+        var friends =  friendsString.split(',' ).map( function( d ){
             return d.trim();
         });
-        console.log( 'frends', frends );
-        return frends;
+        return friends;
     }
 
-    function getPeople(){
-        var people = getFriends();
-        people.push( getName() );
+    function getPeople( data ){
+        var people = getFriends( data.friends );
+        people.push( getName( data.centerName ) );
         return people;
     }
     return {

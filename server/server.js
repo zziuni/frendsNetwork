@@ -1,7 +1,8 @@
 var http = require( 'http' )
     , fs = require( 'fs' )
     , path = require( 'path' )
-    , sio = require( 'socket.io' );
+    , sio = require( 'socket.io' )
+    , env = require( './env' );
 
 var io;
 exports.init = function( app ){
@@ -29,30 +30,31 @@ exports.init = function( app ){
 
         screen.on( 'addFriends', function( data ){
             console.log( '=> spearker good slid' );
-            screen.volatile.emit( 'addFriends', {} );
+            screen.volatile.emit( 'addFriends', data );
         } );
 
         screenSocket = screen;
+
+        io.of('/audience' ).on( 'connection', function( audience ){
+            console.log( '=> The input connected..' );
+
+            audience.on( 'disconnect', function(){} );
+
+            audience.on( 'message', function( msg ){
+                env.log.debug( 'audience send message : ' + msg );
+            } );
+
+            audience.on( 'addFriends', function( data ){
+                env.log.debug( 'audience\'s data get ==', data );
+                if(screen){
+                    env.log.debug( 'screenSocket is it.' );
+                    screen.volatile.emit( 'addFriends', data );
+                }
+                audience.send( 'server: Friends have added.' );
+            } )
+        });
     } );
 
-    io.sockets.on( 'connection', function( audience ){
-        console.log( '-> A phone connected..' );
 
-        audience.on( 'disconnect', function(){
-            console.log( '-> A phone disconnect.' );
-        } );
-
-        audience.on( 'message', function( msg ){
-            console.info( 'from phone : ' + msg );
-            audience.send( 'server: ok.' );
-        } );
-
-        audience.on( 'addFriends', function( data ){
-            if(screenSocket){
-                screenSocket.volatile.emit( 'addFriends', {} );
-            }
-            audience.send( 'server: Friends have added.' );
-        } );
-    } );
 };
 

@@ -33,18 +33,19 @@
 <body>
 
 <div class="container">
+    <div id="message">Loadding...</div>
     <div class="row-fluid">
         <div class="controls">
             <form action="">
                 <div class="control">
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name" placeholder="Your Name.." autofocus>
+                    <input type="text" name="name" id="name" placeholder="Your Name.." autofocus disabled>
                 </div>
                 <div class="control">
-                    <label for="frends">Frends</label>
-                    <textarea name="frends" id="frends" cols="30" rows="10" placeholder="name, name, name..."></textarea>
+                    <label for="friends">Friends</label>
+                    <textarea name="friends" id="friends" cols="30" rows="10" placeholder="name, name, name..." disabled></textarea>
                 </div>
-                <input type="button" value="Apply" class="add  btn btn-primary">
+                <input type="button" value="Apply" id="btnApply" class="add  btn btn-primary" disabled>
                 <!--<input type="button" value="Save" class="save btn btn-warning">-->
                 <!--<input type="button" value="Restore" class="restore btn btn-danger">-->
             </form>
@@ -56,6 +57,58 @@
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="lib/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="lib/require.js" data-main="js/main"></script>
+<!--<script type="text/javascript" src="lib/require.js" data-main="js/main"></script>-->
+<script type="text/javascript">
+    var audience = null;
+    function setMessage( msg ){
+        $( '#message' ).text( msg )
+    }
+
+    var dataForm = {
+        id: '',
+        owner: '',
+        centerName: '',
+        friends: ''
+    }
+
+    function onClickApply(){
+        var name = $('#name' ).val().trim();
+        var friends = $( '#friends' ).val().trim();
+        if( name && friends ){
+            audience.emit( 'addFriends', { centerName: name, friends: friends })
+            setMessage('전송되었어요.')
+        }else{
+            setMessage('둘다 입력하세요.');
+        }
+
+    };
+
+    $().ready( function(){
+        audience = io.connect( '/audience', {
+            'reconnect': true, 'resource': 'socket.io'
+        });
+
+        audience.on( 'connect', function(){
+            console.log( 'connection!' );
+            $('#name' ).attr( 'disabled', false );
+            $('#friends' ).attr( 'disabled', false );
+            $('#btnApply' ).attr( 'disabled', false );
+            $('#btnApply' ).on('click', onClickApply )
+            setMessage('');
+        });
+
+        audience.on( 'disconnect', function(){
+
+        });
+
+        audience.on( 'message', function(data){
+            setMessage(data)
+        });
+
+
+
+    })
+
+</script>
 </body>
 </html>

@@ -10,3 +10,4 @@ clog.configure( {'log level': 5} );
 exports.index = function(req, res){
     res.render('index', { title: 'Friends Network', menu1Cls: 'active'})
 };
+

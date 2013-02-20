@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <style type="text/css">
+        svg {
+            border: 1px solid #000;
+        }
+        rect {
+            fill: #c2d9cd;
+            pointer-events: all;
+        }
+
+        .node{
+            fill: #979797;
+
+        }
+
+        .cursor {
+            fill: none;
+            stroke: brown;
+            pointer-events: none;
+        }
+
+        .link {
+            stroke: #999
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="svg span9"></div>
+        <div class="controls span3">
+            QR
+        </div>
+
+    </div>
+    <h3>Configuration</h3>
+
+    <form class="form-actions form-horizontal" action="">
+        <div class="row-fluid">
+            <div class="span4">
+                <div class="control-group">
+                    <label for="distance" class="control-label">Distance<br/>(링크길이 20)</label>
+                    <div class="controls">
+                        <input type="text" name="distance" id="distance" class="input-mini">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="strength" class="control-label">strength<br/>(강도 1 [0,1])</label>
+                    <div class="controls">
+                        <input type="text" name="strength" id="strength" class="input-mini">
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    <label for="friction" class="control-label">friction<br/>(마찰계수 0.9 [0,1])</label>
+                    <div class="controls">
+                        <input type="text" name="friction" id="friction" class="input-mini">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="charge" class="control-label">charge<br/>(반발력 -30)</label>
+                    <div class="controls">
+                        <input type="text" name="charge" id="charge" class="input-mini">
+                    </div>
+                </div>
+            </div>
+            <div class="span4">
+                <div class="control-group">
+                    <label for="theta" class="control-label">theta<br/>(Barnes–Hut 근사치 0.8)</label>
+                    <div class="controls">
+                        <input type="text" name="theta" id="theta" class="input-mini">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label for="gravity" class="control-label">gravity<br/>(중 0.1)</label>
+                    <div class="controls">
+                        <input type="text" name="gravity" id="gravity" class="input-mini">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <input type="button" value="Apply" class="applyConfig btn btn-warning">
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="lib/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/require.js" data-main="js/main2"></script>
+</body>
+</html>
