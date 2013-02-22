@@ -9,7 +9,11 @@ define(['d3', 'config', 'svg', 'force'], function( d3, config, svgModule ){
 //            .attr( 'ry', 5 );
 
 
-        return enterNode.insert('text', '.cursor' ).text( function( d ){
+        return enterNode.insert('text', '.cursor' )
+            .attr( 'style', function(d){
+                return 'font-size: ' + (14 + d.cnt * 1.3) + 'px';
+            })
+            .text( function( d ){
                 return d.name;
             });
 
@@ -17,7 +21,7 @@ define(['d3', 'config', 'svg', 'force'], function( d3, config, svgModule ){
     }
 
     function makeDefaultNode( name ){
-        return { name: name };
+        return { name: name, cnt: 1 };
     }
 
     function findNode( name, layoutModule ){

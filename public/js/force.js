@@ -68,8 +68,10 @@ define(['d3', 'config', 'svg', 'node' ], function( d3, config, svgModule, nodeMo
 
     function isNode( name ){
         var check = false;
+        console.log( 'nodes', nodes );
         nodes.forEach( function( node ){
             if( node.name === name ){
+                node.cnt = node.cnt+1;
                 check = true;
             }
         });
@@ -112,6 +114,14 @@ define(['d3', 'config', 'svg', 'node' ], function( d3, config, svgModule, nodeMo
     function start(){
         generateNode();
         generateLink();
+        console.log( 'init node', node[0].length );
+        if( node[0].length >0 ){
+            node[0].forEach( function( eachNode, idx ){
+                eachNode.setAttribute('style', 'font-size:'+ ( 12 + node.data()[idx].cnt )+'px');
+
+            });
+        }
+
 
         force.start();
     }
