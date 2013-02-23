@@ -12,8 +12,8 @@ define(['d3', 'config'], function ( d3, config ){
 
     function init( selector ){
         margin = { top: 10, right: 10, bottom: 10, left: 10 };
-        width = 700 - margin.left - margin.right;
-        height = 480 - margin.top - margin.bottom;
+        width = 1024 - margin.left - margin.right;
+        height = 800 - margin.top - margin.bottom;
 
         svg = d3.select( selector ).append('svg' ).
             attr( 'width', width ).
